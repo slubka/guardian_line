@@ -1,0 +1,23 @@
+# Audio transcription
+openai-whisper==20231117
+
+# LLM inference - Phi-3 Mini via llama.cpp
+llama-cpp-python==0.2.90
+
+# Dataset downloading
+huggingface_hub==0.23.4
+datasets==2.20.0
+
+# Audio processing
+librosa==0.10.2
+soundfile==0.12.1
+pydub==0.25.1
+
+# HTTP & utilities
+requests==2.32.3
+tqdm==4.66.4
+pandas==2.2.2
+numpy==1.26.4
+
+# Benchmarking
+tabulate==0.9.0

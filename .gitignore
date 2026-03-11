@@ -1,0 +1,32 @@
+# Models — too large for git (use download_model.py)
+pipeline_test/models/
+
+# Downloaded datasets — regenerate with download_datasets.py
+pipeline_test/data/
+
+# Benchmark results — local only
+pipeline_test/results/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+venv/
+.venv/
+
+# Flutter
+app/.dart_tool/
+app/build/
+app/.flutter-plugins
+app/.flutter-plugins-dependencies
+app/pubspec.lock
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
