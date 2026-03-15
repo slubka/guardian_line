@@ -1,0 +1,33 @@
+sample_id,source_file,true_label,transcript,risk_score,category,traffic_light,predicted_label,correct,whisper_latency_s,llm_latency_s,total_latency_s,error
+sample_001,C:\src\guardian_line\data\safe\safe_01.txt,safe,"Hi Mom, it's Sarah. Just calling to check in. How are you feeling today?",5.0,Error,YELLOW,safe,False,0.0,0.0,0.0,"Model not found at C:\src\guardian_line\models\phi-3-mini-4k-instruct.Q4_K_M.gguf
+Download it with:
+  python download_model.py
+Or manually from: https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf"
+sample_002,C:\src\guardian_line\data\safe\safe_02.txt,safe,"Hello, this is Dr. Johnson's office calling to confirm your appointment on Thursday at 2pm.",5.0,Error,YELLOW,safe,False,0.0,0.0,0.0,"Model not found at C:\src\guardian_line\models\phi-3-mini-4k-instruct.Q4_K_M.gguf
+Download it with:
+  python download_model.py
+Or manually from: https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf"
+sample_003,C:\src\guardian_line\data\safe\safe_03.txt,safe,"Hey Dad, it's Mike. Are you free for dinner on Sunday? We'd love to have you over.",5.0,Error,YELLOW,safe,False,0.0,0.0,0.0,"Model not found at C:\src\guardian_line\models\phi-3-mini-4k-instruct.Q4_K_M.gguf
+Download it with:
+  python download_model.py
+Or manually from: https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf"
+sample_004,C:\src\guardian_line\data\safe\safe_04.txt,safe,"Hi, this is the pharmacy calling. Your prescription for lisinopril is ready for pickup.",5.0,Error,YELLOW,safe,False,0.0,0.0,0.0,"Model not found at C:\src\guardian_line\models\phi-3-mini-4k-instruct.Q4_K_M.gguf
+Download it with:
+  python download_model.py
+Or manually from: https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf"
+sample_005,C:\src\guardian_line\data\safe\safe_05.txt,safe,"Hello, this is your neighbor Carol. I found your mail in my box by mistake. I'll drop it over.",5.0,Error,YELLOW,safe,False,0.0,0.0,0.0,"Model not found at C:\src\guardian_line\models\phi-3-mini-4k-instruct.Q4_K_M.gguf
+Download it with:
+  python download_model.py
+Or manually from: https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf"
+sample_006,C:\src\guardian_line\data\safe\safe_06.txt,safe,"Hi Grandma, it's Emma. I just wanted to say happy birthday! We're coming to visit next week.",5.0,Error,YELLOW,safe,False,0.0,0.0,0.0,"Model not found at C:\src\guardian_line\models\phi-3-mini-4k-instruct.Q4_K_M.gguf
+Download it with:
+  python download_model.py
+Or manually from: https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf"
+sample_007,C:\src\guardian_line\data\safe\safe_07.txt,safe,This is a reminder from your dentist office. You have a cleaning scheduled for next Monday.,5.0,Error,YELLOW,safe,False,0.0,0.0,0.0,"Model not found at C:\src\guardian_line\models\phi-3-mini-4k-instruct.Q4_K_M.gguf
+Download it with:
+  python download_model.py
+Or manually from: https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf"
+sample_008,C:\src\guardian_line\data\safe\safe_08.txt,safe,"Hey, it's Dave from next door. Your car lights are on. Thought you'd want to know.",5.0,Error,YELLOW,safe,False,0.0,0.0,0.0,"Model not found at C:\src\guardian_line\models\phi-3-mini-4k-instruct.Q4_K_M.gguf
+Download it with:
+  python download_model.py
+Or manually from: https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf"

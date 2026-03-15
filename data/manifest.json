@@ -1,0 +1,55 @@
+{
+  "total": 8,
+  "scam_count": 0,
+  "safe_count": 8,
+  "files": [
+    {
+      "path": "C:\\src\\guardian_line\\data\\safe\\safe_01.txt",
+      "label": "safe",
+      "source": "synthetic",
+      "transcript": "Hi Mom, it's Sarah. Just calling to check in. How are you feeling today?"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\safe\\safe_02.txt",
+      "label": "safe",
+      "source": "synthetic",
+      "transcript": "Hello, this is Dr. Johnson's office calling to confirm your appointment on Thursday at 2pm."
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\safe\\safe_03.txt",
+      "label": "safe",
+      "source": "synthetic",
+      "transcript": "Hey Dad, it's Mike. Are you free for dinner on Sunday? We'd love to have you over."
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\safe\\safe_04.txt",
+      "label": "safe",
+      "source": "synthetic",
+      "transcript": "Hi, this is the pharmacy calling. Your prescription for lisinopril is ready for pickup."
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\safe\\safe_05.txt",
+      "label": "safe",
+      "source": "synthetic",
+      "transcript": "Hello, this is your neighbor Carol. I found your mail in my box by mistake. I'll drop it over."
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\safe\\safe_06.txt",
+      "label": "safe",
+      "source": "synthetic",
+      "transcript": "Hi Grandma, it's Emma. I just wanted to say happy birthday! We're coming to visit next week."
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\safe\\safe_07.txt",
+      "label": "safe",
+      "source": "synthetic",
+      "transcript": "This is a reminder from your dentist office. You have a cleaning scheduled for next Monday."
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\safe\\safe_08.txt",
+      "label": "safe",
+      "source": "synthetic",
+      "transcript": "Hey, it's Dave from next door. Your car lights are on. Thought you'd want to know."
+    }
+  ]
+}

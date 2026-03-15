@@ -1,0 +1,9 @@
+sample_id,source_file,true_label,transcript,risk_score,category,traffic_light,predicted_label,correct,whisper_latency_s,llm_latency_s,total_latency_s,error
+sample_001,C:\src\guardian_line\data\safe\safe_01.txt,safe,"Hi Mom, it's Sarah. Just calling to check in. How are you feeling today?",0.0,Safe,GREEN,safe,True,0.0,1.4781951904296875e-05,1.4781951904296875e-05,
+sample_002,C:\src\guardian_line\data\safe\safe_02.txt,safe,"Hello, this is Dr. Johnson's office calling to confirm your appointment on Thursday at 2pm.",0.0,Safe,GREEN,safe,True,0.0,1.4543533325195312e-05,1.4543533325195312e-05,
+sample_003,C:\src\guardian_line\data\safe\safe_03.txt,safe,"Hey Dad, it's Mike. Are you free for dinner on Sunday? We'd love to have you over.",0.0,Safe,GREEN,safe,True,0.0,1.2159347534179688e-05,1.2159347534179688e-05,
+sample_004,C:\src\guardian_line\data\safe\safe_04.txt,safe,"Hi, this is the pharmacy calling. Your prescription for lisinopril is ready for pickup.",0.0,Safe,GREEN,safe,True,0.0,1.1920928955078125e-05,1.1920928955078125e-05,
+sample_005,C:\src\guardian_line\data\safe\safe_05.txt,safe,"Hello, this is your neighbor Carol. I found your mail in my box by mistake. I'll drop it over.",0.0,Safe,GREEN,safe,True,0.0,1.1444091796875e-05,1.1444091796875e-05,
+sample_006,C:\src\guardian_line\data\safe\safe_06.txt,safe,"Hi Grandma, it's Emma. I just wanted to say happy birthday! We're coming to visit next week.",0.0,Safe,GREEN,safe,True,0.0,1.2159347534179688e-05,1.2159347534179688e-05,
+sample_007,C:\src\guardian_line\data\safe\safe_07.txt,safe,This is a reminder from your dentist office. You have a cleaning scheduled for next Monday.,0.0,Safe,GREEN,safe,True,0.0,1.2636184692382812e-05,1.2636184692382812e-05,
+sample_008,C:\src\guardian_line\data\safe\safe_08.txt,safe,"Hey, it's Dave from next door. Your car lights are on. Thought you'd want to know.",0.0,Safe,GREEN,safe,True,0.0,1.3828277587890625e-05,1.3828277587890625e-05,

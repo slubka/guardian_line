@@ -1,23 +1,30 @@
-# Audio transcription
-openai-whisper==20231117
+# Required fix for Python 3.13 (pkg_resources was removed)
+setuptools>=75.0.0
+
+# Audio transcription (use git version for Python 3.13 compat)
+openai-whisper @ git+https://github.com/openai/whisper.git
 
 # LLM inference - Phi-3 Mini via llama.cpp
-llama-cpp-python==0.2.90
+# Requires C++ compiler — install separately AFTER running: xcode-select --install (Mac) or Build Tools (Windows)
+# pip install llama-cpp-python
+# llama-cpp-python==0.3.4
 
 # Dataset downloading
 huggingface_hub==0.23.4
 datasets==2.20.0
 
 # Audio processing
-librosa==0.10.2
 soundfile==0.12.1
 pydub==0.25.1
+
+# librosa has numpy compat issues on 3.13 — use audioread directly
+audioread==3.0.1
 
 # HTTP & utilities
 requests==2.32.3
 tqdm==4.66.4
 pandas==2.2.2
-numpy==1.26.4
+numpy==2.1.0
 
 # Benchmarking
 tabulate==0.9.0

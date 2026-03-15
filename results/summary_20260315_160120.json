@@ -1,0 +1,17 @@
+{
+  "timestamp": "20260315_160120",
+  "total": 8,
+  "accuracy": 0.0,
+  "precision": 0,
+  "recall": 0,
+  "f1": 0,
+  "confusion_matrix": {
+    "tp": 0,
+    "fp": 0,
+    "tn": 0,
+    "fn": 0
+  },
+  "avg_total_latency_s": 0,
+  "avg_llm_latency_s": 0,
+  "latency_target_met": true
+}
