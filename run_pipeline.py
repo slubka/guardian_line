@@ -55,6 +55,10 @@ class PipelineResult:
     whisper_latency_s: float
     llm_latency_s:    float
     total_latency_s:  float
+    matched_patterns: str           # pipe-separated list of all detected patterns
+    pattern_count:    int           # total number of patterns matched
+    strong_hits:      str           # pipe-separated strong pattern matches
+    medium_hits:      str           # pipe-separated medium pattern matches
     error:            Optional[str] = None
 
 
@@ -63,10 +67,10 @@ def score_to_traffic_light(score: float) -> tuple[str, str]:
     """Returns (traffic_light, predicted_label)"""
     if score <= 3:
         return "GREEN", "safe"
-    elif score <= 6:
+    elif score < 6:
         return "YELLOW", "safe"   # Caution but not blocking
     else:
-        return "RED", "scam"
+        return "RED", "scam"      # >= 6 triggers RED
 
 
 # ── Phi-3 Mini System Prompt ───────────────────────────────────────────────────
@@ -197,39 +201,158 @@ def classify_with_llm(transcript: str) -> tuple[dict, float]:
 
 
 # ── Step 3: Mock LLM (for testing without Phi-3 download) ─────────────────────
-SCAM_KEYWORDS = [
-    "irs", "social security", "medicare", "arrest", "warrant", "suspended",
-    "gift card", "wire transfer", "bitcoin", "cryptocurrency", "processing fee",
-    "don't tell", "keep secret", "grandchild", "tech support", "microsoft",
-    "apple", "amazon", "refund", "won", "prize", "lottery", "unclaimed",
-    "ssn", "social security number", "account number", "verify your identity",
-    "immediate", "urgent", "act now", "limited time", "legal action"
+#
+# Pattern sets derived from real FTC robocall transcripts.
+# Key insight: real robocalls use polished, legitimate-sounding language.
+# Detection must focus on STRUCTURE (press 1, call us back, limited time)
+# not just explicit scam words (arrest, gift card).
+
+# High-confidence single signals — each alone scores 7+
+STRONG_PATTERNS = [
+    # IVR action prompts — almost never in legitimate calls
+    "press 1", "press 2", "press 3", "press 9", "press 0", "press #",
+    "press one", "press two",
+
+    # Callback pressure with urgency
+    "call us back", "call us now", "call our toll-free", "toll-free number",
+    "kindly call us", "please call us",
+
+    # Legal/court impersonation
+    "court has issued", "enforcement action", "warrant against your name",
+    "arrest warrant", "legal enforcement", "suspension notice",
+    "appear before", "magistrate", "federal agent",
+    "investigation officer",
+
+    # Utility disconnection scam
+    "disconnection of service", "will get disconnected", "power will",
+    "disconnection department", "within 30 minutes", "within the next hour",
+
+    # Explicit fear triggers
+    "do not ignore", "do not disregard", "ignoring this message",
+    "intentional second attempt",
+
+    # Tech support scam
+    "your computer", "hijack your", "virus has been detected",
+    "microsoft help center", "apple support advisor",
+
+    # Account/identity threat
+    "your social security number has been", "suspended your social",
+    "fraudulent activities", "used for some kind of",
+    "account has been suspended", "account will be suspended",
+
+    # Pre-authorized order scam (sounds official, always fake)
+    "pre-authorized order", "authorize the order",
+
+    # Legal consequence threats
+    "legal consequences", "face some legal", "legal department",
+    "discuss about your case", "case file",
+
+    # Loan forgiveness scam
+    "loan forgiveness", "student loan forgiveness",
+    "imperative that we speak",
+
+    # SSA/government impersonation — conversational style
+    "social security number", "been compromised",
+    "verify some information", "secure your account",
+    "problem with your social",
+]
+
+# Medium signals — need 2+ to score high
+MEDIUM_PATTERNS = [
+    # Urgency language
+    "limited time", "respond immediately", "must respond", "you must call",
+    "very second you receive", "leave your work aside",
+    "immediately", "act now", "as soon as possible",
+
+    # Too-good-to-be-true hooks
+    "qualify for", "qualified for", "you have been selected",
+    "congratulations", "50% off", "discount",
+    "0% interest", "zero percent", "lower your rate", "reduce your rate",
+
+    # Warranty scams
+    "extended warranty", "vehicle warranty", "manufacturer warranty",
+    "warranty would expire", "warranty has expired", "final courtesy call",
+    "vehicle service", "close the file", "factory cutoff",
+    "sent you several notices",
+
+    # Financial hooks
+    "outstanding balance", "past due", "back tax",
+    "student loan", "relief payment", "covid",
+
+    # Fake order/charge scam
+    "being ordered from your", "will charge you", "did not authorize",
+    "cancel your order", "unauthorized",
+
+    # Brand impersonation — only flag when combined with other signals
+    # Note: "amazon" alone removed — legitimate delivery calls mention amazon too
+    "apple support", "microsoft support", "apple care",
+    "social security administration", "irs", "medicare",
+    "dhl express", "fedex delivery",
+
+    # Government impersonation language
+    "federal", "department of", "legal department",
+    "central processing", "state assigned",
+
+    # Suspicious activity hooks — avoid "suspicious" alone (victims say this too)
+    "unusual activity", "suspicious activity", "suspicious charges",
+    "verify your", "confirm your", "your identity",
+
+    # Payment pressure
+    "gift card", "wire transfer", "bitcoin", "cryptocurrency",
+    "refund", "reimbursement", "processing fee",
+
+    # Solar/energy scams
+    "solar program", "tax rebates", "grants from the government",
+    "energy advocates",
 ]
 
 def classify_with_mock(transcript: str) -> tuple[dict, float]:
-    """Rule-based mock classifier — no model download needed."""
+    """
+    Pattern-based mock classifier tuned to real FTC robocall language.
+    Uses two-tier pattern matching: strong signals (single hit = high score)
+    and medium signals (need multiple hits).
+    """
     t0 = time.time()
     text_lower = transcript.lower()
-    found_flags = [kw for kw in SCAM_KEYWORDS if kw in text_lower]
 
-    score = min(10, len(found_flags) * 2.5)
+    strong_hits  = [p for p in STRONG_PATTERNS  if p in text_lower]
+    medium_hits  = [p for p in MEDIUM_PATTERNS  if p in text_lower]
+
+    # Scoring: each strong hit = 4 pts, each medium hit = 1.5 pts, max 10
+    score = min(10.0, len(strong_hits) * 4.0 + len(medium_hits) * 2.0)
+
+    all_flags = strong_hits + medium_hits
+
+    # Category detection
     category = "Safe"
-    if found_flags:
-        if any(k in text_lower for k in ["irs", "arrest", "warrant", "police"]):
-            category = "Impersonation"
-        elif any(k in text_lower for k in ["gift card", "wire", "bitcoin"]):
+    if all_flags:
+        if any(p in text_lower for p in ["press 1", "press 2", "call us back",
+                                          "call our toll-free", "toll-free number"]):
+            category = "Urgency"          # IVR-driven robocall
+        elif any(p in text_lower for p in ["apple support", "microsoft support",
+                                            "your computer", "your device",
+                                            "virus has been detected"]):
+            category = "Impersonation"    # Tech support scam
+        elif any(p in text_lower for p in ["irs", "social security", "federal",
+                                            "arrest warrant", "department of"]):
+            category = "Impersonation"    # Government impersonation
+        elif any(p in text_lower for p in ["0% interest", "lower your rate",
+                                            "qualify for", "congratulations"]):
+            category = "FinancialHook"    # Credit/financial scam
+        elif any(p in text_lower for p in ["gift card", "wire transfer", "bitcoin"]):
             category = "PaymentPressure"
-        elif any(k in text_lower for k in ["urgent", "immediate", "act now"]):
-            category = "Urgency"
         else:
             category = "Mixed"
 
     result = {
-        "risk_score": round(score, 1),
-        "category": category,
-        "reasoning": f"Found {len(found_flags)} keyword(s): {', '.join(found_flags[:3])}",
+        "risk_score":    round(score, 1),
+        "category":      category,
+        "reasoning":     f"Strong: {strong_hits[:2]} | Medium: {medium_hits[:3]}",
         "hook_detected": score > 6,
-        "red_flags": found_flags[:5]
+        "red_flags":     all_flags[:5],
+        "strong_hits":   strong_hits,
+        "medium_hits":   medium_hits,
+        "all_patterns":  all_flags,
     }
     return result, time.time() - t0
 
@@ -239,9 +362,10 @@ def run_pipeline(args) -> list[PipelineResult]:
     """Run the full pipeline on all samples in the data directory."""
 
     # Load manifest
-    manifest_path = DATA_DIR / "manifest.json"
+    manifest_path = DATA_DIR / args.manifest
     if not manifest_path.exists():
-        print("ERROR: No manifest found. Run: python download_datasets.py first.")
+        print(f"ERROR: Manifest not found: {manifest_path}")
+        print("  Run: python download_datasets.py first.")
         sys.exit(1)
 
     with open(manifest_path) as f:
@@ -251,9 +375,15 @@ def run_pipeline(args) -> list[PipelineResult]:
     if args.limit:
         samples = samples[:args.limit]
 
+    is_validation = "validation" in args.manifest
+    set_label     = "HELD-OUT VALIDATION" if is_validation else "TUNING SET"
+
     print(f"\n{'='*60}")
-    print(f"  GuardianLine Pipeline Test")
-    print(f"  Samples: {len(samples)} | Mode: {'text-only' if args.text_only else 'audio+STT'} | LLM: {'mock' if args.mock_llm else 'Phi-3 Mini'}")
+    print(f"  GuardianLine Pipeline Test — {set_label}")
+    print(f"  Manifest : {args.manifest}")
+    print(f"  Samples  : {len(samples)} | Mode: {'text-only' if args.text_only else 'audio+STT'} | LLM: {'mock' if args.mock_llm else 'Phi-3 Mini'}")
+    if is_validation:
+        print(f"  ⚠ This is the held-out set. Results reflect TRUE generalization.")
     print(f"{'='*60}\n")
 
     results = []
@@ -268,6 +398,9 @@ def run_pipeline(args) -> list[PipelineResult]:
         whisper_latency = 0.0
         llm_latency     = 0.0
         transcript      = sample.get("transcript", "")
+        all_patterns    = []
+        strong_hits     = []
+        medium_hits     = []
         error           = None
 
         try:
@@ -291,9 +424,15 @@ def run_pipeline(args) -> list[PipelineResult]:
             else:
                 llm_result, llm_latency = classify_with_llm(transcript)
 
-            risk_score = float(llm_result.get("risk_score", 5))
-            category   = llm_result.get("category", "Unknown")
+            risk_score    = float(llm_result.get("risk_score", 5))
+            category      = llm_result.get("category", "Unknown")
+            all_patterns  = llm_result.get("all_patterns",  llm_result.get("red_flags", []))
+            strong_hits   = llm_result.get("strong_hits",   [])
+            medium_hits   = llm_result.get("medium_hits",   [])
+
             print(f"    Risk Score: {risk_score}/10 | Category: {category} | LLM: {llm_latency:.2f}s")
+            if all_patterns:
+                print(f"    Patterns ({len(all_patterns)}): {' | '.join(all_patterns[:6])}{'...' if len(all_patterns) > 6 else ''}")
 
             # Step 3: Traffic Light
             traffic_light, predicted = score_to_traffic_light(risk_score)
@@ -333,6 +472,10 @@ def run_pipeline(args) -> list[PipelineResult]:
             whisper_latency_s = whisper_latency,
             llm_latency_s    = llm_latency,
             total_latency_s  = total_latency,
+            matched_patterns = " | ".join(all_patterns) if all_patterns else "",
+            pattern_count    = len(all_patterns) if all_patterns else 0,
+            strong_hits      = " | ".join(strong_hits) if strong_hits else "",
+            medium_hits      = " | ".join(medium_hits) if medium_hits else "",
             error            = error
         ))
         print()
@@ -415,9 +558,12 @@ def save_and_report(results: list[PipelineResult], stats: dict):
 # ── Entry Point ────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="GuardianLine Pipeline Benchmark")
-    parser.add_argument("--limit",     type=int,  default=None,  help="Max samples to process")
-    parser.add_argument("--text-only", action="store_true",      help="Skip Whisper, use .txt files only")
-    parser.add_argument("--mock-llm",  action="store_true",      help="Use rule-based mock instead of Phi-3")
+    parser.add_argument("--limit",    type=int,  default=None,  help="Max samples to process")
+    parser.add_argument("--text-only",action="store_true",      help="Skip Whisper, use .txt files only")
+    parser.add_argument("--mock-llm", action="store_true",      help="Use rule-based mock instead of Phi-3")
+    parser.add_argument("--manifest", type=str,  default="manifest.json",
+                        help="Manifest file to use (default: manifest.json). "
+                             "Use manifest_validation.json for held-out validation.")
     args = parser.parse_args()
 
     results, stats = run_pipeline(args)

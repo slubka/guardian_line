@@ -1,8 +1,409 @@
 {
-  "total": 8,
-  "scam_count": 0,
+  "total": 58,
+  "scam_count": 50,
   "safe_count": 8,
+  "note": "Tuning set \u2014 patterns were optimized on these samples",
   "files": [
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_1112259_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "We would like to inform you that there is an order placed for Apple iPhone 11 Pro using your Amazon account. If you do not authorize this order, press 1 or press 2 to authorize this order.",
+      "file_name": "audio-wav-16khz/1112259_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_58345_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "to connect with Apple Support Advisor. Press 2 to listen to this message again. Or if you wish to contact us later, please call us on our toll-free number, 315-232-8257. Thank you.",
+      "file_name": "audio-wav-16khz/58345_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_936704_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hello. This call is to inform you that a pre-authorized order has been placed on your name. So to authorize the order, or to talk to our representative, please press 1 or stay on the line. Thank you. Goodbye.",
+      "file_name": "audio-wav-16khz/936704_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_1100696_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "one to start your claim. Otherwise, press 2 to speak with the billing department.",
+      "file_name": "audio-wav-16khz/1100696_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_807777_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Thank you for choosing Hilton Hotels. We would like to inform you that thanks to the Friends and Family Rewards program, your membership is drawn to receive a complimentary stay. For further details, press 1 now. To be placed on the Do Not Call list, press 2 now.",
+      "file_name": "audio-wav-16khz/807777_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_520125_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "On your excellent payment history, you now qualify for a 0% interest rate on all your credit card accounts. This is a limited time offer and you must respond immediately. Press 1 now to speak to our qualification department and complete the enrollment process.",
+      "file_name": "audio-wav-16khz/520125_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_1638881759.18243_in_Family_Communication_Robocall__Amazon-SuspiciousCharge_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hi, this is Daniel from Amazon customer service. We have seen a recent order number, AMZ0987, of iPhone 11 Pro on your account, which is billed on your card attached to your Amazon account. The amount charged in $1499. We noticed some suspicious activity on your account. So we have put in hold to this transaction. Please press 1 now. And to report please press 2. Thank you.",
+      "file_name": "audio-wav-16khz/1638881759.18243_in_Family_Communication_Robocall__Amazon-SuspiciousCharge_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_598182_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "is to inform you that we just suspend your social security number because we found some suspicious activity. So if you want to know about this case, just press 1. Thank you.",
+      "file_name": "audio-wav-16khz/598182_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_520014_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Greetings, this is an automated message from the Disconnection Department of the Marva Power and Light to inform you that you will be experiencing a disconnection of service today within 30 minutes. Please press 1 to speak to a representative. Thank you.",
+      "file_name": "audio-wav-16khz/520014_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_660764_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hi, this is Melissa with Student Support Center. I am following up in regards to your outstanding federal student loan balance. We have been trying to reach you because you are eligible for the Federal Student Loan Forgiveness Program due to the changes made in 2022. It's imperative that we speak to you as soon as possible since the student loan payment delay is about to come to an end. You can reach us directly to discuss your options at 833-631-7911. Again, that's 833-631-7911. Thank you.",
+      "file_name": "audio-wav-16khz/660764_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_568965_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "this is Susie calling with the Vehicle Service Department. We are calling about your vehicle's manufacturer's warranty. We sent you several notices in the mail that you have yet to extend your warranty past the factory cutoff and this is a courtesy call to renew your warranty before we close the file. If you are interested in renewing your auto warranty now, please press 5 now or press 9 to be removed from our list. Hi this is Susie calling",
+      "file_name": "audio-wav-16khz/568965_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_719755_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "The very second you receive this message, you need to leave your work aside so that we can discuss about your case and take necessary action on this matter in order to connect Investigation Officer, Press 1. And you will be connected to the Concerned Department. If we don't hear from you, then we will be forced to take legal action against you.",
+      "file_name": "audio-wav-16khz/719755_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_719750_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "The very second you receive this message, you need to leave your work aside so that we can discuss about your case and take necessary action on this matter in order to connect Investigation Officer, Press 1. And you will be connected to the Concerned Department. If we don't hear from you, then we will be forced to take legal action against you.",
+      "file_name": "audio-wav-16khz/719750_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_1205446_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "please press 1 to speak with the billing department. Otherwise, please press 2 to speak with the disconnections department. Thank you for choosing our services.",
+      "file_name": "audio-wav-16khz/1205446_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_241125_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "This message is intended to contact you, regarding a legal enforcement action executed under your social security number for suspicious and fraudulent activities committed in the state of Texas. And we just suspended your social security number. Ignoring this will be an intentional second attempt, to avoid initial appearance before magistrate, judge, or grand jury for a federal criminal offense, this is the final attempt to reach you, so if you want to know about this case just press 1.",
+      "file_name": "audio-wav-16khz/241125_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_500510_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "We would like to inform you that there is an order placed for Apple iPhone 12 Pro using your Amazon account. If you do not authorize this order then press 1 or press 2 to authorize the order.",
+      "file_name": "audio-wav-16khz/500510_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_274452_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hello, this is Mary Marcello regarding your COVID-19 relief payment, and you can reach me at my state assigned phone number, 855-228-4781, and it's my job to make you aware that because you qualified for a relief payment, you also qualify for the new debt relief program. The primary focus of this program is to provide student loan debt relief by either significantly reducing the amount you owe or eliminating it altogether. This was just passed by the Biden administration, actively known as BidenCare. We see that you have not enrolled in this free program, so please give me a call and I will make sure your form is submitted. It takes five minutes. Your state assigned phone number is 855-228-4781. And this call has been marked complete by State Agent Mary Marcello, agent number 5568. Talk with you soon. Take care.",
+      "file_name": "audio-wav-16khz/274452_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_635443_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Next from your Amazon account, which will charge you $899. If you did not authorize this order, then press 1 for Amazon support. Thank you.",
+      "file_name": "audio-wav-16khz/635443_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_587263_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hi, this is Melanie. I'm giving you a call from the dealer service center. We recently noticed your car's extended warranty would expire and wanted to provide you with one final courtesy call before your warranty expires and your warranty coverage becomes voided. This would make you financially responsible for all service repairs. If you wish to extend or reinstate your car's warranty, press 4 now or press 9 to discontinue coverage and discontinue receiving these reminders.",
+      "file_name": "audio-wav-16khz/587263_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_651815_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "AirPods is being ordered from your Amazon account for an amount of $1,537.35. To cancel your order or to connect with one of our customer support representatives, please press 1.",
+      "file_name": "audio-wav-16khz/651815_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_482002_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "suspicious, and fraudulent activities carried out using your identities. The court has issued a suspension notice, along with a warrant against your name. Ignoring this message would be an intentional second attempt to avoid an initial appearance before the magistrate judge, or the exempt jury for a federal criminal offense. This is the final attempt to reach you. For more information, press 1 and hold for the next available agent.",
+      "file_name": "audio-wav-16khz/482002_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_1155333_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "And no one has signed for it For English inquiries, please press 1 And Chinese, please press 2 Sydex \u56fd\u9645\u5feb\u9012\u6700\u540e\u4e00\u6b21\u901a\u77e5\u60a8 We have an email that has been sent twice and no one has signed If you want to check it, please press 1 And Chinese, please press 2",
+      "file_name": "audio-wav-16khz/1155333_normalized.wav",
+      "language": "zh"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_27991_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "to your account before the next billing cycle. Congratulations on your excellent payment history. You now qualify for a 0% interest rate on all your credit card accounts. This is a limited time offer and you must respond immediately. Press 1 now to speak to our qualification department and complete the enrollment process.",
+      "file_name": "audio-wav-16khz/27991_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_582925_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "being ordered from your Amazon account for an amount of $1,537.35. To cancel your order or to connect with one of our customer support representatives, please press 1.",
+      "file_name": "audio-wav-16khz/582925_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_525133_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Department of Social Security Administration. The reason you receive this phone call from our department is to inform you that there is a legal enforcement action filed on your social security number for fraudulent activities. So when you get this message kindly press 1 to connect with the next available officer. Thank you.",
+      "file_name": "audio-wav-16khz/525133_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_1211775_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hello, this call is from Amazon. We have gone through your account, and we found that your Amazon account has been used for shopping purpose, as we can see multiple orders placed from your Amazon account. Now, to confirm your order, press 2, or press 1 to talk to our representative.",
+      "file_name": "audio-wav-16khz/1211775_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_942979_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hi there, I'm calling you from Spectrum to let you know that your existing account is qualified for 50% off. In order to avail the discount, kindly call us back at 844-649-1413 from 8 a.m. to 5 p.m. Pacific Standard Time. Thank you and have a great day.",
+      "file_name": "audio-wav-16khz/942979_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_447375_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hi, my name is Jason, calling you from Energy Advocates. How are you today? What I would like to do is tell you a little about the solar program. The benefits, tax rebates, and grants from the government that typically mean going solar is absolutely free for most people. I understand you are the homeowner of a single family regular house, right? Hello? How are you today?",
+      "file_name": "audio-wav-16khz/447375_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_790368_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "call from our department is to inform you that there's a legal enforcement actions filed on your social security number for fraudulent activities. In order to connect federal agent press 1 and you will be connected to the concerned department. If we don't hear from you, your social will be blocked permanently. Press 1 and you will be connected to the concerned department.",
+      "file_name": "audio-wav-16khz/790368_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_497288_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hi, this is the alert system with FISA MasterCard account services with important changes to your account before the next billing cycle. Congratulations on your excellent payment history. You now qualify for a 0% interest rate on all your credit card accounts. This is a limited time offer and you must respond immediately. Press 1 now to speak to our qualification department and complete the enrollment process.",
+      "file_name": "audio-wav-16khz/497288_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_1116635_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "\u8fd9\u662fDHL\u56fd\u9645\u5feb\u9012\u6700\u540e\u8bed\u97f3\u901a\u77e5 \u60a8\u6709\u4e00\u4efd\u91cd\u8981\u5feb\u4ef6\u6d3e\u9001\u5747\u65e0\u4eba\u7b7e\u6536 \u4e86\u89e3\u8be6\u60c5\u8bf7\u63099 \u8bf7\u63099 \u7531\u4eba\u5de5\u5ba2\u670d\u4e3a\u60a8\u670d\u52a1 \u8fd9\u662fDHL\u56fd\u9645\u5feb\u9012\u6700\u540e\u8bed\u97f3\u901a\u77e5 \u60a8\u6709\u4e00\u4efd\u91cd\u8981\u5feb\u4ef6\u6d3e\u9001\u5747\u65e0\u4eba\u7b7e\u6536 \u4e86\u89e3\u8be6\u60c5\u8bf7\u63099 \u8bf7\u63099 \u7531\u4eba\u5de5\u5ba2\u670d\u4e3a\u60a8\u670d\u52a1",
+      "file_name": "audio-wav-16khz/1116635_normalized.wav",
+      "language": "zh"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_463263_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "This is an important call regarding illegal enforcement action being executed under your name for suspicious fraudulent activities carried out using your identity. The court has issued a suspension notice along with a warrant against your name. Ignoring this message will be an intentional second attempt to avoid initial appearance before a magistrate, judge or grand jury for a federal criminal offense. This is the final attempt to reach you. For more information, press 1 and hold for the next available officer.",
+      "file_name": "audio-wav-16khz/463263_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_544702_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "your identity. The court has issued a suspension notice along with warrant against your name. Ignoring this message will be an intentional second attempt. To avoid initial appearance before a magistrate, judge, or grand jury for federal criminal offense, this is the final attempt to reach you. For more information, press 1 and hold for the next available officer.",
+      "file_name": "audio-wav-16khz/544702_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_66973_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Before using any financial accounts, please contact Apple Support Advisor. Press 1 to connect with Apple Support Advisor. Press 2 to listen to this message again. Thank you.",
+      "file_name": "audio-wav-16khz/66973_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_509676_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "related to your name. We are trying to reach you but unfortunately we missed your answer. In order to connect our legal department press 1 so that we can discuss about your case file and take necessary action on this matter. In case we would not hear from you then you will face some legal consequences. To connect now press 1 and you will be automatically connect to the concerned department. By this call you have been officially notified. Thank you.",
+      "file_name": "audio-wav-16khz/509676_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_530083_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Officer Amanda Barnes and the purpose of the call we are trying to reach you to let you know that your social security number has been used for some kind of fraudulent activities in the south border of Texas, so please in order go ahead get more information. To speak with Officer press 1. I repeat press 1. Thank you and have a great day.",
+      "file_name": "audio-wav-16khz/530083_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_463260_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "This is an important call regarding a legal enforcement action being executed under your name for suspicious and fraudulent activities carried out using your identity. The court has issued a suspension notice along with a warrant against your name. Ignoring this message will be an intentional second attempt to avoid initial appearance before a magistrate, judge or grand jury for a federal criminal offense. This is the final attempt to reach you. For more information, press 1 and hold for the next available officer.",
+      "file_name": "audio-wav-16khz/463260_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_535208_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "You now qualify for 0% interest rate on all your credit card account. This is the limited time offer, and you must respond immediately. Press 1 now to speak to our qualification department and complete the enrollment process.",
+      "file_name": "audio-wav-16khz/535208_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_638881_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "This call is from Department of Social Security Administration. The reason you have received this phone call from our department is to inform you that we just suspend your social security number because we found some suspicious activity. So if you want to know about this case, just press 1. Thank you.",
+      "file_name": "audio-wav-16khz/638881_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_711071_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Thank you for connecting. I am the virtual assistant for Margaret Smith with Central Processing Center for Federal Back Tax Negotiations. The purpose of her call was to make you aware that the government suspended the Tax Collection Act and will settle all old tax debts that U.S. residents may have. This means you are not going to need to pay back your past due taxes since they are non-collectible and ready to be settled. Using our automated approval technology, you are now able to obtain enrollment information based on your current situation. To use our AI automation and find the program you are interested in, please visit us at www.cdc.gov.au.",
+      "file_name": "audio-wav-16khz/711071_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_1631035650.66108_in_AKA_Management_Robocall__Computer-Hijack_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hello, this call is from Microsoft Help Center. We encounter a serious issue coming out of your computer. It seems to be someone is trying to hijack your identity and try to steal your social security number and personal information. If it's not fixed right away then your computer will become obsolete and all of your credential information may got compromised. If you are the one who is using Microsoft Windows in your computer, then please press 7 now to speak with security team now. Please ignore if we called you by mistake. Thanks.",
+      "file_name": "audio-wav-16khz/1631035650.66108_in_AKA_Management_Robocall__Computer-Hijack_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_795470_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hello, this is Amazon. This call is to authorize a payment of $999. We would like to inform you that there is an order placed for App iPhone 11 Pro using your Amazon account. If you do not authorize this order, press 1 or press 2 to authorize this order.",
+      "file_name": "audio-wav-16khz/795470_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_1034902_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "SEDEX International Express will inform you for the last time, that you have a parcel that has been delivered twice, and no one has signed for it. For English inquiries, please press 1, and Chinese please press 2. SEDEX International Express will inform you for the last time, that you have a parcel that has been delivered twice, and no one has signed for it. For English inquiries, please press 1, and Chinese please press 2.",
+      "file_name": "audio-wav-16khz/1034902_normalized.wav",
+      "language": "zh"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_s6diZGlyX3I3cGRpcjp0b21jYXQ5MzE1OjE2MzQ4NDA2ODIyMTNL98qFNd.gen_Global_Net_Holdings_Robocall__Utility-30MinDisconnect_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hi, this is an automated message from the Disconnection Department of Pacific Gas and Electric, Electricity Company. This call is to inform you that your power will get disconnected in 30 minutes due to a pending balance on the account. If you need to speak with a representative for further information, please press 1. Thank you for choosing Pacific Gas and Electric. Goodbye.",
+      "file_name": "audio-wav-16khz/s6diZGlyX3I3cGRpcjp0b21jYXQ5MzE1OjE2MzQ4NDA2ODIyMTNL98qFNd.gen_Global_Net_Holdings_Robocall__Utility-30MinDisconnect_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_857381_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hello, this is Amazon. This call is to authorize a payment of $999. We would like to inform you that there is an order placed for Apple iPhone 11 Pro using your Amazon account. If you do not authorize this order, press 1 or press 2 to authorize this order.",
+      "file_name": "audio-wav-16khz/857381_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_509601_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "We are calling you from the Department of Social Security Administration. The reason you received this phone call from our department is to inform you that there is a legal enforcement action filed on your Social Security number for fraudulent activities. So, when you get this message, kindly press 1 to connect with the next available officer. Thank you.",
+      "file_name": "audio-wav-16khz/509601_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_947222_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "calling you from the legal department, the very second you receive this message you need to leave your work aside, so that we can discuss about your case and take necessary action on this matter. In order to connect federal agent press 1 and you will be connected to the concerned department. If we don't hear from you, then we will be forced to take legal action against you. Press 1 and you will be connected to the concerned department.",
+      "file_name": "audio-wav-16khz/947222_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_431124_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "We are calling you from the Department of Social Security Administration. The reason you have received this phone call from our department is to inform you that there is illegal information filed on your social security for fraudulent activities. So, when you get this message, kindly press 1 to connect with the next available officer. Thank you.",
+      "file_name": "audio-wav-16khz/431124_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_872731_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "Hi there, I'm calling you from AT&T Direct TV to let you know that your existing account is qualified for 50% off. In order to avail the discount, kindly call us back at 888-604-0734 from 8am to 5pm Pacific Standard Time. Thank you and have a great day.",
+      "file_name": "audio-wav-16khz/872731_normalized.wav",
+      "language": "en"
+    },
+    {
+      "path": "C:\\src\\guardian_line\\data\\scam\\audio-wav-16khz_823634_normalized.txt",
+      "label": "scam",
+      "source": "ftc",
+      "transcript": "We would like to inform you that there is an order placed for Apple iPhone 11 Pro using your Amazon account. If you do not authorize this order, press 1 or press 2 to authorize this order.",
+      "file_name": "audio-wav-16khz/823634_normalized.wav",
+      "language": "en"
+    },
     {
       "path": "C:\\src\\guardian_line\\data\\safe\\safe_01.txt",
       "label": "safe",
