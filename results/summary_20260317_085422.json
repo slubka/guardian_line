@@ -1,0 +1,17 @@
+{
+  "timestamp": "20260317_085422",
+  "total": 58,
+  "accuracy": 0.9655172413793104,
+  "precision": 1.0,
+  "recall": 0.96,
+  "f1": 0.9795918367346939,
+  "confusion_matrix": {
+    "tp": 48,
+    "fp": 0,
+    "tn": 8,
+    "fn": 2
+  },
+  "avg_total_latency_s": 23.747747281502033,
+  "avg_llm_latency_s": 23.747747281502033,
+  "latency_target_met": false
+}
