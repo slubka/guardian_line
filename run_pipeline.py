@@ -76,30 +76,38 @@ def score_to_traffic_light(score: float) -> tuple[str, str]:
 # ── Phi-3 Mini System Prompt ───────────────────────────────────────────────────
 SYSTEM_PROMPT = """You are GuardianLine, a scam detection AI protecting elderly phone users.
 
-Analyze the following phone call transcript and detect social engineering tactics.
+Your job is to detect "The Hook" — the opening move of a scam — BEFORE any money is requested.
+Be AGGRESSIVE in flagging suspicious calls. A missed scam is far worse than a false alarm.
 
-Common scam patterns to detect:
-- IMPERSONATION: Pretending to be IRS, Medicare, Social Security, bank, police, grandchild, tech support
-- URGENCY: "Act now", "immediate action required", "your account will be closed", "you will be arrested"
-- ISOLATION: "Don't tell anyone", "keep this between us", "your family won't understand"
-- PAYMENT PRESSURE: Gift cards, wire transfer, cryptocurrency, "processing fee"
-- FEAR TACTICS: Threats of arrest, lawsuit, account closure, deportation
-- PII HARVESTING: Requesting SSN, Medicare number, bank account, date of birth
-- TOO GOOD TO BE TRUE: Lottery winnings, prize money, unclaimed funds
+CRITICAL: These common call types are ALWAYS scams, even if they sound polite:
+- Any robocall asking you to "Press 1" or call back a number — ALWAYS score 7+
+- Fake order alerts (Amazon, Apple, bank charges) — ALWAYS score 7+
+- Warranty expiry calls ("your vehicle warranty is about to expire") — score 6+
+- Utility disconnection threats ("your power will be cut off") — score 7+
+- Any caller claiming to be from SSA, IRS, Medicare, FBI, police — score 8+
+- Tech support calls about viruses, hacking, computer problems — score 8+
+- Loan forgiveness or debt relief offers — score 6+
+- Prize/reward/rebate offers requiring action — score 6+
+
+IMPORTANT: Even SHORT or PARTIAL transcripts with IVR prompts ("press 1", "press 2",
+"call us back") are high-risk robocalls. Score them 7+ even without full context.
+
+Safe calls look like: family members, known doctors/pharmacies confirming appointments,
+neighbors, delivery confirmations WITHOUT asking to call back an unknown number.
 
 Respond ONLY with a valid JSON object — no explanation, no markdown, no extra text:
 {
   "risk_score": <integer 0-10>,
-  "category": "<one of: Safe, Impersonation, Urgency, Isolation, PaymentPressure, FearTactic, PIIHarvesting, Lottery, Mixed>",
+  "category": "<one of: Safe, Impersonation, Urgency, FakeOrder, Warranty, Utility, TechSupport, Financial, Lottery, Mixed>",
   "reasoning": "<one sentence max>",
   "hook_detected": <true|false>,
   "red_flags": ["<flag1>", "<flag2>"]
 }
 
 Risk score guide:
-  0-3  = Safe (normal conversation, no red flags)
-  4-6  = Caution (mildly suspicious, unusual request)
-  7-10 = Scam (clear social engineering detected)"""
+  0-3  = Safe (clearly legitimate: family, known business, appointment reminder)
+  4-5  = Caution (unusual but not clearly malicious)
+  6-10 = SCAM — flag it. When in doubt, score higher."""
 
 
 # ── Step 1: Whisper STT ────────────────────────────────────────────────────────
@@ -149,8 +157,9 @@ def get_llm():
             print(f"    [Phi-3] Loading model from {model_path}...")
             _llm_instance = Llama(
                 model_path=str(model_path),
-                n_ctx=2048,
-                n_threads=4,
+                n_ctx=1024,       # Reduced from 2048 — enough for prompt + short transcript
+                n_threads=8,      # Increased — use more CPU cores
+                n_batch=512,      # Larger batch for faster prompt processing
                 verbose=False
             )
         except ImportError:
@@ -169,7 +178,7 @@ def classify_with_llm(transcript: str) -> tuple[dict, float]:
     t0 = time.time()
     output = llm(
         prompt,
-        max_tokens=256,
+        max_tokens=128,    # Reduced — JSON response is small, saves inference time
         temperature=0.1,   # Low temperature for consistent classification
         stop=["<|end|>", "<|user|>"]
     )
