@@ -65,8 +65,10 @@ Future<void> _startCall() async {
     });
 
     _callerPc = await createPeerConnection(_rtcConfig);
+    _calleePc = await createPeerConnection(_rtcConfig);
 
     _callerPc!.onIceCandidate = (c) => _calleePc!.addCandidate(c);
+    _calleePc!.onIceCandidate = (c) => _callerPc!.addCandidate(c);
 
     _calleePc!.onTrack = (RTCTrackEvent event) {
       if (event.track.kind == 'audio') {
