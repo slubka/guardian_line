@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../services/audio_capture_service.dart';
+import '../services/audio_classification_service.dart';
 
 class CallScreen extends StatefulWidget {
   const CallScreen({super.key});
@@ -16,6 +17,7 @@ class _CallScreenState extends State<CallScreen> {
   MediaStream? _localStream;
 
   final AudioCaptureService _audioCapture = AudioCaptureService();
+  final AudioClassificationService _audioClassification = AudioClassificationService();
 
   bool _callActive = false;
   int _chunkCount = 0;
@@ -28,9 +30,7 @@ class _CallScreenState extends State<CallScreen> {
   @override
   void initState() {
     super.initState();
-    _audioCapture.onChunkReceived = (count) {
-      if (mounted) setState(() => _chunkCount = count);
-    };
+    _audioClassification.init(_audioCapture);
   }
 
   @override
@@ -73,7 +73,7 @@ Future<void> _startCall() async {
     _calleePc!.onTrack = (RTCTrackEvent event) {
       if (event.track.kind == 'audio') {
         debugPrint('[CallScreen] Remote audio track received — attaching');
-        _audioCapture.attachToTrack(event.track);
+        _audioCapture.startCapture();
       }
     };
 
@@ -94,7 +94,7 @@ Future<void> _startCall() async {
   }
 
   Future<void> _hangUp() async {
-    _audioCapture.dispose();
+    _audioCapture.stop();
     await _callerPc?.close();
     await _calleePc?.close();
     _localStream?.getTracks().forEach((t) => t.stop());

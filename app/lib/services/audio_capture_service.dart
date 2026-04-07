@@ -1,74 +1,90 @@
+import 'dart:async';
 import 'dart:typed_data';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:flutter/material.dart';
+import 'package:record/record.dart';
+
+class AudioSubscription {
+  final Duration window;
+  final void Function(Uint8List) onData;
+
+  AudioSubscription({required this.window, required this.onData});
+}
 
 class AudioCaptureService {
-  final List<Uint8List> _buffer = [];
-  int _totalBytesReceived = 0;
-  int _chunkCount = 0;
+  final AudioRecorder _recorder = AudioRecorder();
+  StreamSubscription<Uint8List>? _audioStream;
+  
+  // Master buffer of raw bytes
+  final List<int> _buffer = [];
+  
+  // Audio configuration constants
+  static const int sampleRate = 16000;
+  static const int bytesPerSample = 2; // 16-bit PCM
 
-  static const int _maxBufferBytes = 480000;
-  bool _isCapturing = false;
+  // List of generic subscribers
+  final List<AudioSubscription> _subscribers = [];
 
-  // UI callback — call_screen uses this to update the chunk counter
-  void Function(int chunkCount)? onChunkReceived;
-
-  void attachToTrack(MediaStreamTrack track) {
-    if (_isCapturing) return;
-    _isCapturing = true;
-    debugPrint('[AudioCapture] Attached to remote track: ${track.id}');
-
-    // Poll the buffer snapshot periodically instead of onAudioData
-    _startPolling(track);
+  /// Registers a callback to receive a sliding window of audio data.
+  void subscribe(Duration window, void Function(Uint8List) onData) {
+    _subscribers.add(AudioSubscription(window: window, onData: onData));
   }
 
-  void _startPolling(MediaStreamTrack track) async {
-    while (_isCapturing) {
-      await Future.delayed(const Duration(milliseconds: 20));
-      if (!_isCapturing) break;
-
-      // Simulate PCM chunk receipt — in Phase 2 this becomes real Whisper input
-      final fakeChunk = Uint8List(320); // 20ms of silence at 16kHz 16-bit mono
-      _onPcmChunk(fakeChunk);
-    }
-  }
-
-  void _onPcmChunk(Uint8List chunk) {
-    _chunkCount++;
-    _totalBytesReceived += chunk.lengthInBytes;
-
-    _buffer.add(chunk);
-
-    int bufferSize = _buffer.fold(0, (sum, c) => sum + c.lengthInBytes);
-    while (bufferSize > _maxBufferBytes && _buffer.isNotEmpty) {
-      bufferSize -= _buffer.removeAt(0).lengthInBytes;
-    }
-
-    if (_chunkCount % 100 == 0) {
-      debugPrint(
-        '[AudioCapture] ✅ Chunks: $_chunkCount | '
-        'Total bytes: $_totalBytesReceived | '
-        'Buffer: ${_buffer.length} chunks',
+  Future<void> startCapture() async {
+    if (await _recorder.hasPermission()) {
+      const config = RecordConfig(
+        encoder: AudioEncoder.pcm16bits,
+        sampleRate: sampleRate,
+        numChannels: 1,
       );
-    }
 
-    onChunkReceived?.call(_chunkCount);
+      final stream = await _recorder.startStream(config);
+      
+      _audioStream = stream.listen((Uint8List chunk) {
+        _buffer.addAll(chunk);
+        _notifySubscribers();
+        _truncateBuffer();
+      });
+    }
   }
 
-  Uint8List getBufferSnapshot() {
-    final total = _buffer.fold(0, (sum, c) => sum + c.lengthInBytes);
-    final result = Uint8List(total);
-    int offset = 0;
-    for (final chunk in _buffer) {
-      result.setRange(offset, offset + chunk.lengthInBytes, chunk);
-      offset += chunk.lengthInBytes;
+  void _notifySubscribers() {
+    for (var sub in _subscribers) {
+      int requiredBytes = _getByteCountForDuration(sub.window);
+
+      if (_buffer.length >= requiredBytes) {
+        // Create a view of the last N bytes
+        final windowData = Uint8List.fromList(
+          _buffer.sublist(_buffer.length - requiredBytes)
+        );
+        sub.onData(windowData);
+      }
     }
-    return result;
   }
 
-  void dispose() {
-    _isCapturing = false;
+  void _truncateBuffer() {
+    // Keep only the amount of data required by the longest subscription
+    // + a small safety margin (e.g., 1 minute)
+    Duration maxWindow = _subscribers.isEmpty 
+        ? Duration.zero
+        : _subscribers.map((s) => s.window).reduce((a, b) => a > b ? a : b);
+    
+    // add safety margin of 60 milliseconds to account for any timing discrepancies
+    int retentionBytes = _getByteCountForDuration(maxWindow + Duration(milliseconds: 60));
+
+    if (_buffer.length > retentionBytes) {
+      _buffer.removeRange(0, _buffer.length - retentionBytes);
+    }
+  }
+
+  void stop() {
+    _audioStream?.cancel();
+    _recorder.dispose();
     _buffer.clear();
-    debugPrint('[AudioCapture] Disposed. Total chunks: $_chunkCount');
+  }
+
+  int _getByteCountForDuration(Duration duration) {
+    // Bytes = (Seconds * Samples/Second * Bytes/Sample)
+    // We use inMicroseconds for higher precision with very short durations
+    return (duration.inMicroseconds / 1000000 * sampleRate * bytesPerSample).toInt();
   }
 }
