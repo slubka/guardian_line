@@ -2,14 +2,16 @@
 # Single source of truth. Read at session start. Update before closing.
 
 ## Last Updated
-2026-03-22 | Session: WebRTC architecture review + hard constraint defined
+2026-04-12
 
 ## Project Status
 - Engineering: Python benchmark pipeline complete (98% accuracy). Flutter shell running
   on Android emulator. Phase 1 (audio capture) implementation ready to apply.
 - Business: Strategy doc complete. All GTM/fundraising questions open.
-- Last completed: WebRTC architecture review. Hard constraint on caller-side
-  installation defined and logged.
+- **Pipeline Ready:** The internal audio pipeline is fully functional. Raw PCM data flows from the `AudioCaptureService` directly to the `AudioClassificationService` once a connection is established.
+- **Trigger Logic:** Classification activation is now strictly tied to the **Callee** role. The system waits for an incoming `RTCTrackEvent` before engaging the analysis engine, ensuring we only "guard" active incoming streams.
+- **Simulation Harness:** Implemented a local loopback mechanism within `CallScreen`. The "Simulate Incoming Call" button allows for end-to-end testing of the audio buffer and classification triggers on a single device without an external signaling server.
+
 
 ## Open Questions
 - [ ] BLOCKER: Which geographic market first — US, UK, or EU? → Owner: Product Strategist
@@ -30,6 +32,9 @@
       privacy-preserving alternative to live audio interception → Owner: Architect + Product Strategist
 
 ## Decision Log
+- **[2026-04-12] Callee-Centric Analysis:** Decided to shift the classification trigger to the receiving side of the call to focus on protecting the user from incoming threats ("The Hook").
+- **[2026-04-12] Internal Loopback for Development:** Adopted a dual-PeerConnection approach in the same memory space. This bypasses signaling complexity during the current benchmarking phase and enables rapid local iteration.
+- **[2026-04-12] Persistent Variable Naming:** Maintained `_audioClassification` and `AudioClassificationService` naming conventions to ensure consistency with the established POC structure and Git history.
 - 2026-03-19 | Flutter + flutter_webrtc chosen as cross-platform app framework
   Rationale: fastest PoC dev, single codebase for iOS + Android | Owner: Architect
 - 2026-03-19 | Whisper.cpp chosen for on-device STT
@@ -74,6 +79,10 @@
   Task: Determine priority geographic market (US / UK / EU)
   Context: Affects regulatory strategy, GTM focus, and partnership targets
   Blocker: yes — blocks GTM planning
+- **Performance Budget:** How long does the local classification of a 10–15s window take? We need to determine if the processing time necessitates moving the service to a background Isolate to maintain 60fps UI performance.
+- **Data Normalization:** Does the local model require raw 16-bit PCM, or must we implement a conversion layer to `Float32` (-1.0 to 1.0) before passing the buffer to the classifier?
+- **Android 15 Concurrency:** Will the `record` package maintain stable access to the microphone hardware while a WebRTC high-priority audio session is active on all target physical devices?
+
 
 ## Milestone Tracker
 - [x] Python benchmark pipeline — 98% accuracy, precision, recall (held-out validation n=100)
