@@ -1,7 +1,11 @@
+import 'package:app/services/interfaces/i_text_classification_service.dart';
+import 'package:app/services/interfaces/i_transcription_service.dart';
+import 'package:app/services/service_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import '../services/audio_capture_service.dart';
-import '../services/audio_classification_service.dart';
+import '../services/text_classification_service.dart';
+import '../services/transcription_service.dart';
 
 class CallScreen extends StatefulWidget {
   const CallScreen({super.key});
@@ -14,10 +18,7 @@ class _CallScreenState extends State<CallScreen> {
   RTCPeerConnection? _peerConnection;
   RTCPeerConnection? _loopbackCaller; 
   final _remoteRenderer = RTCVideoRenderer();
-  
-  final AudioCaptureService _audioCapture = AudioCaptureService();
-  final AudioClassificationService _audioClassification = AudioClassificationService(); 
-  
+    
   bool _isCallActive = false;
 
   @override
@@ -25,6 +26,29 @@ class _CallScreenState extends State<CallScreen> {
     super.initState();
     _initRenderers();
     _setupPeerConnection();
+
+    _initServices();
+  }
+
+  void _initServices() {
+    ServiceProvider().initializeServices();
+
+    // we would like to process 15 second windows of audio data for classification, so we subscribe to the audio capture service with that window size
+    Duration look_back_window = const Duration(seconds: 15);
+    ServiceProvider().audioCaptureService.subscribe(
+      look_back_window,
+      (data) async {
+        // pass the audio data to transcription service for conversion to text
+        ServiceProvider().transcriptionService.addData(data);
+      });
+    
+    // whenever there is text data ready, we pass it down to text classification
+    ServiceProvider().transcriptionService.subscribe(
+      look_back_window,
+      (data) async {
+        // pass the transcribed text to the text classification service for analysis
+        ServiceProvider().textClassificationService.addData(data);
+      });
   }
 
   Future<void> _initRenderers() async {
@@ -43,8 +67,7 @@ class _CallScreenState extends State<CallScreen> {
         debugPrint('Guardian Logic: Remote track detected.');
         
         // Start the service and subscriber logic
-        _audioCapture.startCapture();
-        _audioClassification.init(_audioCapture);
+        ServiceProvider().audioCaptureService.startCapture();
 
         if (mounted) setState(() => _isCallActive = true);
       }
@@ -81,7 +104,8 @@ class _CallScreenState extends State<CallScreen> {
   }
 
   void _endCall() {
-    _audioCapture.stop();
+    ServiceProvider().cleanup();
+
     _peerConnection?.close();
     _loopbackCaller?.close();
     if (mounted) {
@@ -91,7 +115,7 @@ class _CallScreenState extends State<CallScreen> {
 
   @override
   void dispose() {
-    _audioCapture.stop();
+    ServiceProvider().cleanup();
     _remoteRenderer.dispose();
     _peerConnection?.dispose();
     _loopbackCaller?.dispose();
@@ -132,4 +156,12 @@ class _CallScreenState extends State<CallScreen> {
         : null,
     );
   }
+}
+
+extension on ITextClassificationService {
+  void addData(Object? data) {}
+}
+
+extension on ITranscriptionService {
+  void subscribe(Duration look_back_window, Future<Null> Function(data) param1) {}
 }
